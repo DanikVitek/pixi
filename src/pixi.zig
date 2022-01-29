@@ -5,14 +5,13 @@ const sokol = @import("sokol");
 
 pub const editor = @import("editor/editor.zig");
 
-pub fn _forward_load_message(path: [*c]const u8) callconv(.C) void {
-    std.log.debug("{s}", .{path});
-
+export fn forward_load_message(path_ptr: [*c]const u8, path_len: c_long) callconv(.C) void {
+    const path = path_ptr[0..@intCast(usize, path_len)];
+    std.log.debug("forward_load_message: {s}", .{path});
     editor.onFileDropped(path);
 }
 
 pub fn main() !void {
-
     upaya.run(.{
         .init = editor.init,
         .update = editor.update,
@@ -27,5 +26,3 @@ pub fn main() !void {
         .app_name = "Pixi",
     });
 }
-
-
