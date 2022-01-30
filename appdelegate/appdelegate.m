@@ -9,7 +9,7 @@ extern void forward_load_message(const char * filename, size_t filename_len);
 + (void)load{
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		Class class = objc_getClass("GLFWApplicationDelegate");
+		Class class = objc_getClass("_sapp_macos_app_delegate");
 	
 		[CustomDelegate swizzle:class src:@selector(application:openFile:) tgt:@selector(swz_application:openFile:)];
 		[CustomDelegate swizzle:class src:@selector(application:openFiles:) tgt:@selector(swz_application:openFiles:)];

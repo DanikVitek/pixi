@@ -5,6 +5,9 @@ const upaya = @import("upaya");
 const imgui = @import("imgui");
 const sokol = @import("sokol");
 
+// path passed to the program before startup
+pub var startup_path: []const u8 = "";
+
 pub const types = @import("types/types.zig");
 pub const history = @import("history/history.zig");
 pub const input = @import("input/input.zig");
@@ -110,6 +113,10 @@ pub fn init() void {
     canvas.init();
     sprites.init();
     pack.init();
+
+    if (!std.mem.eql(u8, "", startup_path)) {
+        onFileDropped(startup_path);
+    }
 }
 
 pub fn setupDockLayout(id: imgui.ImGuiID) void {

@@ -8,7 +8,14 @@ const Target = std.build.Target;
 const Pkg = std.build.Pkg;
 
 pub fn build(b: *Builder) !void {
-    const target = b.standardTargetOptions(.{});
+    var target = b.standardTargetOptions(.{});
+
+    // if (builtin.os.tag == .macos) {
+    //     target = .{
+    //         .cpu_model = 
+    //     };
+    // }
+
 
     // use a different cache folder for macos arm builds
     //b.cache_root = if (std.builtin.os.tag == .macos and std.builtin.cpu.arch == std.Target.Cpu.Arch.aarch64) "zig-arm-cache" else "zig-cache";
